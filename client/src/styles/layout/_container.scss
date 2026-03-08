@@ -1,0 +1,376 @@
+// ==========================================================================
+// Container - Layout Container Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ==========================================================================
+// Base Container
+// ==========================================================================
+
+.container {
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+
+    @include mobile {
+        padding: 0 $spacing-md;
+    }
+}
+
+// ==========================================================================
+// Fluid Container
+// ==========================================================================
+
+.container-fluid {
+    width: 100%;
+    padding: 0 $container-padding;
+
+    @include mobile {
+        padding: 0 $spacing-md;
+    }
+}
+
+// ==========================================================================
+// Container Sizes
+// ==========================================================================
+
+.container-sm {
+    max-width: 640px;
+}
+
+.container-md {
+    max-width: 960px;
+}
+
+.container-lg {
+    max-width: 1200px;
+}
+
+.container-xl {
+    max-width: 1400px;
+}
+
+.container-full {
+    max-width: 100%;
+}
+
+// ==========================================================================
+// Section Container
+// ==========================================================================
+
+.section {
+    padding: $spacing-2xl 0;
+
+    @include mobile {
+        padding: $spacing-xl 0;
+    }
+}
+
+// ==========================================================================
+// Page Container
+// ==========================================================================
+
+.page {
+    min-height: calc(100vh - #{$spacing-2xl * 2});
+    padding: $spacing-xl 0;
+
+    @include mobile {
+        padding: $spacing-lg 0;
+    }
+}
+
+// ==========================================================================
+// Content Wrapper
+// ==========================================================================
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.content-wide {
+    max-width: 1000px;
+}
+
+.content-narrow {
+    max-width: 600px;
+}
+
+// ==========================================================================
+// Flex Containers
+// ==========================================================================
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-md;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.flex-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+// ==========================================================================
+// Responsive Flex
+// ==========================================================================
+
+@include mobile {
+    .flex-row {
+        flex-direction: column;
+    }
+
+    .flex-center-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .flex-between-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+// ==========================================================================
+// Spacing Utilities
+// ==========================================================================
+
+.m-auto {
+    margin: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.m-0 {
+    margin: 0;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.ml-0 {
+    margin-left: 0;
+}
+
+.mr-0 {
+    margin-right: 0;
+}
+
+.m-xs {
+    margin: $spacing-xs;
+}
+
+.m-sm {
+    margin: $spacing-sm;
+}
+
+.m-md {
+    margin: $spacing-md;
+}
+
+.m-lg {
+    margin: $spacing-lg;
+}
+
+.m-xl {
+    margin: $spacing-xl;
+}
+
+.mt-sm {
+    margin-top: $spacing-sm;
+}
+
+.mt-md {
+    margin-top: $spacing-md;
+}
+
+.mt-lg {
+    margin-top: $spacing-lg;
+}
+
+.mt-xl {
+    margin-top: $spacing-xl;
+}
+
+.mb-sm {
+    margin-bottom: $spacing-sm;
+}
+
+.mb-md {
+    margin-bottom: $spacing-md;
+}
+
+.mb-lg {
+    margin-bottom: $spacing-lg;
+}
+
+.mb-xl {
+    margin-bottom: $spacing-xl;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.p-xs {
+    padding: $spacing-xs;
+}
+
+.p-sm {
+    padding: $spacing-sm;
+}
+
+.p-md {
+    padding: $spacing-md;
+}
+
+.p-lg {
+    padding: $spacing-lg;
+}
+
+.p-xl {
+    padding: $spacing-xl;
+}
+
+// ==========================================================================
+// Width & Height
+// ==========================================================================
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+// ==========================================================================
+// Display Utilities
+// ==========================================================================
+
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.grid {
+    display: grid;
+}
+
+// ==========================================================================
+// Position Utilities
+// ==========================================================================
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+}
+
+// ==========================================================================
+// Overflow
+// ==========================================================================
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+// ==========================================================================
+// Visibility
+// ==========================================================================
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-100 {
+    opacity: 1;
+}

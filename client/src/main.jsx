@@ -11,8 +11,8 @@ import { Provider } from "react-redux";
 import App from "./App";
 // Import the configured Redux store
 import { store } from "./redux/store";
-// Import global CSS styles
-import "./styles/global.css";
+// Import global SCSS styles
+import "./styles/main.scss";
 
 // Create root and render the React application
 // React.StrictMode helps identify potential problems in the app

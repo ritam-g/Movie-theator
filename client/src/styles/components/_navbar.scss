@@ -1,0 +1,402 @@
+// ==========================================================================
+// Navbar - Premium Navigation Bar Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ==========================================================================
+// Navbar Base
+// ==========================================================================
+
+.navbar {
+    background: rgba($bg-secondary, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba($border, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: $z-sticky;
+    transition: all $transition-smooth;
+
+    // Scroll effect
+    &.scrolled {
+        background: rgba($bg-primary, 0.95);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+}
+
+// ==========================================================================
+// Navbar Inner
+// ==========================================================================
+
+.navbar-inner {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: $spacing-md $container-padding;
+    display: flex;
+    gap: $spacing-lg;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mobile {
+        padding: $spacing-sm $spacing-md;
+        gap: $spacing-md;
+    }
+}
+
+// ==========================================================================
+// Logo
+// ==========================================================================
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    transition: all $transition-base;
+
+    // Logo icon
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: $accent-gradient;
+        border-radius: $radius-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $font-size-lg;
+    }
+
+    &:hover {
+        color: $text-primary;
+
+        .logo-icon {
+            box-shadow: $shadow-glow;
+        }
+    }
+}
+
+// ==========================================================================
+// Nav Links
+// ==========================================================================
+
+.nav-links {
+    display: flex;
+    gap: $spacing-xs;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @include mobile {
+        gap: 2px;
+    }
+}
+
+// ==========================================================================
+// Nav Link Item
+// ==========================================================================
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-sm $spacing-md;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+    position: relative;
+
+    // Icon
+    .nav-icon {
+        font-size: $font-size-base;
+    }
+
+    // Hover state
+    &:hover {
+        color: $text-primary;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    // Active state
+    &.active {
+        color: $text-primary;
+        background: rgba($accent, 0.15);
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: $accent;
+            border-radius: $radius-full;
+        }
+    }
+
+    // Focus state
+    &:focus-visible {
+        @include focus-ring-subtle;
+    }
+
+    @include mobile {
+        padding: $spacing-sm;
+        font-size: $font-size-xs;
+
+        .nav-icon {
+            font-size: $font-size-sm;
+        }
+    }
+}
+
+// ==========================================================================
+// Navbar Actions
+// ==========================================================================
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+}
+
+// ==========================================================================
+// Search Button
+// ==========================================================================
+
+.navbar-search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    background: transparent;
+    border: 1px solid transparent;
+    color: $text-secondary;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        color: $text-primary;
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &:focus-visible {
+        @include focus-ring;
+    }
+
+    svg {
+        font-size: $font-size-lg;
+    }
+}
+
+// ==========================================================================
+// User Menu
+// ==========================================================================
+
+.navbar-user {
+    position: relative;
+}
+
+.navbar-user-btn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: $text-primary;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: $accent-gradient;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+    }
+
+    .user-name {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+
+        @include mobile {
+            display: none;
+        }
+    }
+}
+
+// ==========================================================================
+// Dropdown Menu
+// ==========================================================================
+
+.navbar-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: $bg-secondary;
+    border: 1px solid $border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-xl;
+    padding: $spacing-xs;
+    animation: fadeInDown 0.2s ease forwards;
+    z-index: $z-dropdown;
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        padding: $spacing-sm $spacing-md;
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        border-radius: $radius-md;
+        transition: all $transition-base;
+        cursor: pointer;
+
+        &:hover {
+            color: $text-primary;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        &.danger {
+            color: $error;
+
+            &:hover {
+                background: rgba($error, 0.1);
+            }
+        }
+    }
+
+    .dropdown-divider {
+        height: 1px;
+        background: $border;
+        margin: $spacing-xs 0;
+    }
+}
+
+// ==========================================================================
+// Mobile Menu Toggle
+// ==========================================================================
+
+.navbar-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: $text-primary;
+    cursor: pointer;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    @include mobile {
+        display: flex;
+    }
+}
+
+// ==========================================================================
+// Navbar Mobile Styles
+// ==========================================================================
+
+@include mobile {
+    .nav-links {
+        display: none;
+
+        &.is-open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: $bg-secondary;
+            border-bottom: 1px solid $border;
+            padding: $spacing-md;
+            gap: $spacing-xs;
+
+            .nav-link {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+}
+
+// Desktop only
+.desktop-only {
+    @include mobile {
+        display: none;
+    }
+}
+
+// ==========================================================================
+// Navbar Animation
+// ==========================================================================
+
+@keyframes navbarSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar {
+    animation: navbarSlideDown 0.3s ease forwards;
+}
+
+// ==========================================================================
+// Navbar with Transparency (Hero Page)
+// ==========================================================================
+
+.navbar-transparent {
+    background: transparent;
+    border-bottom: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-fixed;
+
+    &.scrolled {
+        background: rgba($bg-primary, 0.95);
+        position: sticky;
+    }
+}

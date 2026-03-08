@@ -1,0 +1,257 @@
+// ==========================================================================
+// Typography - Font Styles and Text Utilities
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ==========================================================================
+// Font Families
+// ==========================================================================
+
+$font-family-primary: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+$font-family-display: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+
+// ==========================================================================
+// Heading Styles
+// ==========================================================================
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading-1,
+.heading-2,
+.heading-3,
+.heading-4,
+.heading-5,
+.heading-6 {
+    font-family: $font-family-heading;
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin-bottom: $spacing-md;
+}
+
+.heading-1 {
+    font-size: $font-size-4xl;
+
+    @include mobile {
+        font-size: $font-size-2xl;
+    }
+}
+
+.heading-2 {
+    font-size: $font-size-3xl;
+
+    @include mobile {
+        font-size: $font-size-xl;
+    }
+}
+
+.heading-3 {
+    font-size: $font-size-2xl;
+
+    @include mobile {
+        font-size: $font-size-lg;
+    }
+}
+
+.heading-4 {
+    font-size: $font-size-xl;
+}
+
+.heading-5 {
+    font-size: $font-size-lg;
+}
+
+.heading-6 {
+    font-size: $font-size-base;
+}
+
+// ==========================================================================
+// Body Text Styles
+// ==========================================================================
+
+body,
+p,
+.text-body {
+    font-family: $font-family;
+    font-size: $font-size-base;
+    color: $text-secondary;
+    line-height: $line-height-normal;
+}
+
+.text-small {
+    font-size: $font-size-sm;
+    color: $text-muted;
+}
+
+.text-xs {
+    font-size: $font-size-xs;
+    color: $text-muted;
+}
+
+.text-large {
+    font-size: $font-size-lg;
+    color: $text-primary;
+}
+
+// ==========================================================================
+// Text Colors
+// ==========================================================================
+
+.text-primary {
+    color: $text-primary;
+}
+
+.text-secondary {
+    color: $text-secondary;
+}
+
+.text-muted {
+    color: $text-muted;
+}
+
+.text-accent {
+    color: $accent;
+}
+
+.text-success {
+    color: $success;
+}
+
+.text-warning {
+    color: $warning;
+}
+
+.text-error {
+    color: $error;
+}
+
+// ==========================================================================
+// Text Weights
+// ==========================================================================
+
+.font-normal {
+    font-weight: $font-weight-normal;
+}
+
+.font-medium {
+    font-weight: $font-weight-medium;
+}
+
+.font-semibold {
+    font-weight: $font-weight-semibold;
+}
+
+.font-bold {
+    font-weight: $font-weight-bold;
+}
+
+// ==========================================================================
+// Text Alignment
+// ==========================================================================
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+// ==========================================================================
+// Text Transforms
+// ==========================================================================
+
+.text-uppercase {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.text-lowercase {
+    text-transform: lowercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+// ==========================================================================
+// Text Truncation
+// ==========================================================================
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.text-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// ==========================================================================
+// Line Heights
+// ==========================================================================
+
+.leading-tight {
+    line-height: $line-height-tight;
+}
+
+.leading-normal {
+    line-height: $line-height-normal;
+}
+
+.leading-relaxed {
+    line-height: $line-height-relaxed;
+}
+
+// ==========================================================================
+// Letter Spacing
+// ==========================================================================
+
+.tracking-tight {
+    letter-spacing: -0.025em;
+}
+
+.tracking-normal {
+    letter-spacing: 0;
+}
+
+.tracking-wide {
+    letter-spacing: 0.025em;
+}
+
+// ==========================================================================
+// Section Title
+// ==========================================================================
+
+.section-title {
+    font-family: $font-family-heading;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin: 0 0 $spacing-lg;
+
+    @include mobile {
+        font-size: $font-size-xl;
+    }
+}

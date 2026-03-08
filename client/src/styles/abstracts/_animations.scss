@@ -1,0 +1,244 @@
+// ==========================================================================
+// Animations - Keyframes and Animation Utilities
+// ==========================================================================
+
+@use './variables' as *;
+
+// ==========================================================================
+// Fade Animations
+// ==========================================================================
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ==========================================================================
+// Slide Animations
+// ==========================================================================
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+// ==========================================================================
+// Scale Animations
+// ==========================================================================
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+// ==========================================================================
+// Shimmer Effect for Skeleton Loading
+// ==========================================================================
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+// ==========================================================================
+// Spin Animation
+// ==========================================================================
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ==========================================================================
+// Bounce Animation
+// ==========================================================================
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+// ==========================================================================
+// Glow Pulse
+// ==========================================================================
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba($accent, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba($accent, 0.6), 0 0 30px rgba($accent, 0.3);
+    }
+}
+
+// ==========================================================================
+// Float Animation
+// ==========================================================================
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+// ==========================================================================
+// Card Hover Glow
+// ==========================================================================
+
+@keyframes cardGlow {
+    0% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 8px 30px rgba($accent, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+}
+
+// ==========================================================================
+// Stagger Animation Delays
+// ==========================================================================
+
+@for $i from 1 through 20 {
+    .stagger-#{$i} {
+        animation-delay: #{$i * 50}ms;
+    }
+}
+
+// ==========================================================================
+// Animation Utility Classes
+// ==========================================================================
+
+.animate-fade-in {
+    animation: fadeIn $animation-duration-base ease forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp $animation-duration-slow ease forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn $animation-duration-base ease forwards;
+}
+
+.animate-shimmer {
+    animation: shimmer 1.5s infinite;
+    background: linear-gradient(90deg,
+            $bg-card 0%,
+            $surface 50%,
+            $bg-card 100%);
+    background-size: 200% 100%;
+}
+
+.animate-spin {
+    animation: spin 0.8s linear infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}

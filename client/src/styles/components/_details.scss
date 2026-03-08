@@ -1,0 +1,285 @@
+// ==========================================================================
+// MovieDetails - Movie Details Page Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ==========================================================================
+// Details Layout
+// ==========================================================================
+
+.movie-details {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+// ==========================================================================
+// Details Poster
+// ==========================================================================
+
+.details-poster-wrapper {
+    position: relative;
+
+    @include tablet {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.details-poster {
+    width: 100%;
+    border-radius: $radius-xl;
+    border: 1px solid $border;
+    box-shadow: $shadow-xl;
+    transition: transform $transition-smooth;
+
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+.details-poster-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba($bg-primary, 0.8) 0%,
+            transparent 50%);
+    border-radius: $radius-xl;
+    pointer-events: none;
+}
+
+// ==========================================================================
+// Details Content
+// ==========================================================================
+
+.details-content {
+    padding: $spacing-md 0;
+}
+
+.details-title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+    line-height: 1.2;
+
+    @include mobile {
+        font-size: $font-size-2xl;
+    }
+}
+
+.details-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        color: $text-muted;
+        font-size: $font-size-sm;
+
+        .rating {
+            color: $warning;
+            font-weight: $font-weight-semibold;
+        }
+    }
+}
+
+.details-divider {
+    height: 1px;
+    background: $border;
+    margin: $spacing-lg 0;
+}
+
+// ==========================================================================
+// Details Tagline
+// ==========================================================================
+
+.details-tagline {
+    font-size: $font-size-lg;
+    font-style: italic;
+    color: $text-secondary;
+    margin-bottom: $spacing-lg;
+}
+
+// ==========================================================================
+// Details Overview
+// ==========================================================================
+
+.details-overview {
+    margin-bottom: $spacing-xl;
+
+    .overview-label {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: $spacing-sm;
+    }
+
+    .overview-text {
+        font-size: $font-size-base;
+        color: $text-secondary;
+        line-height: $line-height-relaxed;
+    }
+}
+
+// ==========================================================================
+// Details Actions
+// ==========================================================================
+
+.details-actions {
+    display: flex;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
+.details-btn {
+    @include button-base;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    border-radius: $radius-lg;
+
+    &.primary {
+        @include button-primary;
+    }
+
+    &.secondary {
+        @include button-secondary;
+    }
+
+    &.favorite {
+        @include button-ghost;
+        background: rgba($accent, 0.1);
+        border: 1px solid rgba($accent, 0.3);
+
+        &:hover {
+            background: rgba($accent, 0.2);
+            border-color: $accent;
+        }
+
+        &.is-favorite {
+            background: $accent;
+            border-color: $accent;
+
+            &:hover {
+                background: lighten($accent, 10%);
+            }
+        }
+    }
+}
+
+// ==========================================================================
+// Details Info Grid
+// ==========================================================================
+
+.details-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info-item {
+    .info-label {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: $spacing-xs;
+    }
+
+    .info-value {
+        color: $text-primary;
+        font-size: $font-size-base;
+    }
+}
+
+// ==========================================================================
+// Details Cast
+// ==========================================================================
+
+.details-cast {
+    margin-top: $spacing-xl;
+}
+
+.cast-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-lg;
+}
+
+.cast-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: $spacing-md;
+
+    @include desktop {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include tablet {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.cast-item {
+    text-align: center;
+
+    .cast-image {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: $radius-lg;
+        object-fit: cover;
+        margin-bottom: $spacing-sm;
+        background: $bg-secondary;
+    }
+
+    .cast-name {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        color: $text-primary;
+        @include text-truncate;
+    }
+
+    .cast-character {
+        font-size: $font-size-xs;
+        color: $text-muted;
+        @include text-truncate;
+    }
+}
+
+// ==========================================================================
+// Details Similar
+// ==========================================================================
+
+.details-similar {
+    margin-top: $spacing-2xl;
+}
+
+.similar-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-lg;
+}

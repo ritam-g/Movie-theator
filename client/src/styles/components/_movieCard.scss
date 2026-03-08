@@ -1,0 +1,326 @@
+// ==========================================================================
+// MovieCard - Premium Movie Card Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ==========================================================================
+// Card Base
+// ==========================================================================
+
+.card {
+    position: relative;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    transition: all $transition-smooth;
+    cursor: pointer;
+
+    // Hover lift effect
+    &:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba($accent, 0.15);
+
+        .card-poster {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            opacity: 1;
+        }
+
+        .card-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    // Focus state
+    &:focus-visible {
+        outline: 2px solid $accent;
+        outline-offset: 2px;
+    }
+}
+
+// ==========================================================================
+// Poster Image
+// ==========================================================================
+
+.card-poster-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    background: $bg-secondary;
+}
+
+.card-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-smooth;
+}
+
+// ==========================================================================
+// Rating Badge
+// ==========================================================================
+
+.card-rating {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    @include rating-badge;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    padding: 4px 8px;
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $warning;
+
+    .star-icon {
+        color: $warning;
+    }
+}
+
+// ==========================================================================
+// Gradient Overlay
+// ==========================================================================
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.4) 40%,
+            transparent 100%);
+    opacity: 0;
+    transition: opacity $transition-smooth;
+    pointer-events: none;
+}
+
+// ==========================================================================
+// Card Body
+// ==========================================================================
+
+.card-body {
+    padding: $spacing-md;
+    position: relative;
+
+    // Movie title
+    strong {
+        display: block;
+        font-size: $font-size-base;
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+        @include text-truncate;
+        transition: color $transition-base;
+
+        .card:hover & {
+            color: $text-primary;
+        }
+    }
+
+    // Meta information
+    .meta {
+        font-size: $font-size-sm;
+        color: $text-muted;
+        margin-bottom: 2px;
+
+        &:last-of-type {
+            margin-bottom: $spacing-sm;
+        }
+    }
+}
+
+// ==========================================================================
+// Card Actions
+// ==========================================================================
+
+.card-actions {
+    display: flex;
+    gap: $spacing-sm;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all $transition-smooth;
+
+    @include mobile {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ==========================================================================
+// Button Styles in Card
+// ==========================================================================
+
+.card {
+    .button-link {
+        @include button-secondary;
+        padding: $spacing-xs $spacing-md;
+        font-size: $font-size-sm;
+        flex: 1;
+        justify-content: center;
+        background: rgba($accent, 0.9);
+        border-color: $accent;
+
+        &:hover {
+            background: $accent;
+            box-shadow: 0 0 15px rgba($accent, 0.4);
+        }
+    }
+
+    button[type="button"] {
+        @include button-ghost;
+        padding: $spacing-xs $spacing-md;
+        font-size: $font-size-sm;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+// ==========================================================================
+// Favorite Button
+// ==========================================================================
+
+.card-favorite-btn {
+    position: absolute;
+    top: $spacing-sm;
+    left: $spacing-sm;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: all $transition-base;
+    opacity: 0;
+
+    @include mobile {
+        opacity: 1;
+    }
+
+    .card:hover & {
+        opacity: 1;
+    }
+
+    &:hover {
+        background: rgba($accent, 0.8);
+        transform: scale(1.1);
+    }
+
+    &.is-favorite {
+        opacity: 1;
+        background: $accent;
+
+        &:hover {
+            background: lighten($accent, 10%);
+        }
+    }
+
+    svg {
+        color: $text-primary;
+        font-size: $font-size-lg;
+        transition: all $transition-base;
+    }
+
+    &.is-favorite svg {
+        color: $text-primary;
+        animation: pulse 0.3s ease;
+    }
+}
+
+// ==========================================================================
+// Card Loading State
+// ==========================================================================
+
+.card-loading {
+    pointer-events: none;
+
+    .card-poster-wrapper {
+        @include skeleton-pulse;
+        background: $surface;
+    }
+
+    .card-body {
+
+        strong,
+        .meta {
+            @include skeleton-pulse;
+            background: $surface;
+            border-radius: $radius-sm;
+        }
+
+        strong {
+            height: 20px;
+            margin-bottom: $spacing-sm;
+        }
+
+        .meta {
+            height: 14px;
+            width: 60%;
+            margin-bottom: $spacing-xs;
+        }
+    }
+}
+
+// ==========================================================================
+// Stagger Animation
+// ==========================================================================
+
+.card-stagger {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+
+    @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 50}ms;
+        }
+    }
+}
+
+// ==========================================================================
+// Mobile Adjustments
+// ==========================================================================
+
+@include mobile {
+    .card-body {
+        padding: $spacing-sm;
+
+        strong {
+            font-size: $font-size-sm;
+        }
+
+        .meta {
+            font-size: $font-size-xs;
+        }
+    }
+
+    .card-actions {
+        flex-direction: column;
+
+        .button-link,
+        button[type="button"] {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}

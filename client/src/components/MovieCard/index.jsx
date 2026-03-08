@@ -17,6 +17,8 @@
  * @param {boolean} props.showFavoriteAction - Whether to show favorite button
  */
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FaStar, FaHeart, FaRegHeart } from "react-icons/fa";
 import { getMovieTitle, getPosterUrl, getReleaseYear } from "../../utils/helpers";
 
 function MovieCard({
@@ -34,16 +36,51 @@ function MovieCard({
   const identifier = movie.id || movie.tmdbId;
 
   return (
-    <article className="card">
+    <motion.article
+      className="card card-stagger"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      whileHover={{ y: -8 }}
+    >
       {/* Movie poster image with lazy loading */}
-      <img
-        src={getPosterUrl(movie.poster_path || movie.posterPath || movie.posterUrl)}
-        alt={title}
-        loading="lazy"
-        onError={(event) => {
-          event.currentTarget.src = getPosterUrl(null);
-        }}
-      />
+      <div className="card-poster-wrapper">
+        <img
+          className="card-poster"
+          src={getPosterUrl(movie.poster_path || movie.posterPath || movie.posterUrl)}
+          alt={title}
+          loading="lazy"
+          onError={(event) => {
+            event.currentTarget.src = getPosterUrl(null);
+          }}
+        />
+
+        {/* Rating badge */}
+        <div className="card-rating">
+          <FaStar className="star-icon" />
+          {rating}
+        </div>
+
+        {/* Gradient overlay on hover */}
+        <div className="card-overlay" />
+
+        {/* Favorite button */}
+        {showFavoriteAction && (
+          <motion.button
+            type="button"
+            className={`card-favorite-btn ${isFavorite ? 'is-favorite' : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onToggleFavorite?.(movie);
+            }}
+            whileTap={{ scale: 0.9 }}
+            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          >
+            {isFavorite ? <FaHeart /> : <FaRegHeart />}
+          </motion.button>
+        )}
+      </div>
+
       <div className="card-body">
         {/* Movie title */}
         <strong>{title}</strong>
@@ -58,14 +95,19 @@ function MovieCard({
           </Link>
           {/* Favorite toggle button - only shown if enabled */}
           {showFavoriteAction ? (
-            <button type="button" onClick={() => onToggleFavorite?.(movie)}>
+            <motion.button
+              type="button"
+              onClick={() => onToggleFavorite?.(movie)}
+              whileTap={{ scale: 0.95 }}
+            >
               {isFavorite ? "Remove Favorite" : "Add Favorite"}
-            </button>
+            </motion.button>
           ) : null}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
 export default MovieCard;
+

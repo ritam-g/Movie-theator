@@ -1,0 +1,299 @@
+// ==========================================================================
+// Skeleton - Premium Loading Placeholder Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ==========================================================================
+// Skeleton Base
+// ==========================================================================
+
+.skeleton {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    position: relative;
+
+    // Shimmer effect
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                transparent 100%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+}
+
+// ==========================================================================
+// Skeleton Card
+// ==========================================================================
+
+.skeleton-card {
+    @extend .skeleton;
+
+    .skeleton-poster {
+        width: 100%;
+        aspect-ratio: 2/3;
+        background: $surface;
+        border-radius: 0;
+    }
+
+    .skeleton-body {
+        padding: $spacing-md;
+    }
+
+    .skeleton-title {
+        height: 18px;
+        width: 80%;
+        background: $surface;
+        border-radius: $radius-sm;
+        margin-bottom: $spacing-sm;
+    }
+
+    .skeleton-meta {
+        height: 14px;
+        width: 60%;
+        background: $surface;
+        border-radius: $radius-sm;
+        margin-bottom: $spacing-xs;
+    }
+
+    .skeleton-meta:last-child {
+        width: 40%;
+    }
+}
+
+// ==========================================================================
+// Skeleton Text
+// ==========================================================================
+
+.skeleton-text {
+    @extend .skeleton;
+    height: 16px;
+    width: 100%;
+    border-radius: $radius-sm;
+}
+
+.skeleton-text-sm {
+    @extend .skeleton;
+    height: 14px;
+    width: 100%;
+    border-radius: $radius-sm;
+}
+
+.skeleton-text-lg {
+    @extend .skeleton;
+    height: 24px;
+    width: 100%;
+    border-radius: $radius-sm;
+}
+
+// ==========================================================================
+// Skeleton Circle (for avatars)
+// ==========================================================================
+
+.skeleton-circle {
+    @extend .skeleton;
+    border-radius: 50%;
+}
+
+.skeleton-circle-sm {
+    width: 32px;
+    height: 32px;
+}
+
+.skeleton-circle-md {
+    width: 48px;
+    height: 48px;
+}
+
+.skeleton-circle-lg {
+    width: 64px;
+    height: 64px;
+}
+
+.skeleton-circle-xl {
+    width: 96px;
+    height: 96px;
+}
+
+// ==========================================================================
+// Skeleton Rectangle
+// ==========================================================================
+
+.skeleton-rectangle {
+    @extend .skeleton;
+    height: 120px;
+    border-radius: $radius-md;
+}
+
+.skeleton-rectangle-lg {
+    @extend .skeleton;
+    height: 200px;
+    border-radius: $radius-lg;
+}
+
+// ==========================================================================
+// Skeleton Button
+// ==========================================================================
+
+.skeleton-button {
+    @extend .skeleton;
+    height: 40px;
+    width: 120px;
+    border-radius: $radius-md;
+}
+
+// ==========================================================================
+// Skeleton Grid
+// ==========================================================================
+
+.skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: $grid-gap-lg;
+
+    @include large-desktop {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    @include desktop {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include tablet {
+        grid-template-columns: repeat(3, 1fr);
+        gap: $grid-gap-md;
+    }
+
+    @include mobile {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-md;
+    }
+}
+
+// ==========================================================================
+// Skeleton Card Variations
+// ==========================================================================
+
+.skeleton-card-sm {
+    @extend .skeleton-card;
+
+    .skeleton-poster {
+        aspect-ratio: 1/1.5;
+    }
+
+    .skeleton-body {
+        padding: $spacing-sm;
+    }
+
+    .skeleton-title {
+        height: 14px;
+    }
+
+    .skeleton-meta {
+        height: 10px;
+    }
+}
+
+// ==========================================================================
+// Skeleton with Fade In
+// ==========================================================================
+
+.skeleton-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+// ==========================================================================
+// Staggered Skeleton Cards
+// ==========================================================================
+
+.skeleton-stagger {
+    @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 50}ms;
+        }
+    }
+}
+
+// ==========================================================================
+// Mobile Adjustments
+// ==========================================================================
+
+@include mobile {
+    .skeleton-grid {
+        gap: $spacing-md;
+    }
+
+    .skeleton-body {
+        padding: $spacing-sm;
+    }
+
+    .skeleton-title {
+        height: 14px;
+    }
+
+    .skeleton-meta {
+        height: 10px;
+    }
+}
+
+// ==========================================================================
+// Skeleton Loading Overlay
+// ==========================================================================
+
+.skeleton-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba($bg-primary, 0.8);
+    @include flex-center;
+    z-index: $z-modal;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    .skeleton {
+        position: relative;
+
+        &::after {
+            animation: shimmer 1s infinite;
+        }
+    }
+}
+
+// ==========================================================================
+// Skeleton Pulse Variant
+// ==========================================================================
+
+.skeleton-pulse {
+
+    .skeleton-poster,
+    .skeleton-title,
+    .skeleton-meta {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        background: $surface;
+    }
+}
+
+// ==========================================================================
+// Reduced Motion
+// ==========================================================================
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton::after {
+        animation: none;
+        background: $surface;
+    }
+
+    .skeleton-pulse .skeleton-poster,
+    .skeleton-pulse .skeleton-title,
+    .skeleton-pulse .skeleton-meta {
+        animation: none;
+    }
+}

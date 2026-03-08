@@ -1,0 +1,252 @@
+// ==========================================================================
+// Home - Home Page Styles
+// ==========================================================================
+
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/animations';
+
+// ==========================================================================
+// Hero Section
+// ==========================================================================
+
+.hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-2xl;
+    overflow: hidden;
+
+    // Gradient background
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg,
+                rgba($bg-primary, 0.95) 0%,
+                rgba($bg-secondary, 0.9) 50%,
+                rgba($bg-tertiary, 0.95) 100%);
+        z-index: -1;
+    }
+
+    // Decorative circles
+    &::after {
+        content: '';
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba($accent, 0.1) 0%, transparent 70%);
+        top: -200px;
+        right: -200px;
+        z-index: -1;
+    }
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    padding: $spacing-2xl;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.hero-title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-md;
+    line-height: 1.2;
+
+    @include mobile {
+        font-size: $font-size-2xl;
+    }
+}
+
+.hero-subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
+
+    @include mobile {
+        font-size: $font-size-base;
+    }
+}
+
+// ==========================================================================
+// Page Header
+// ==========================================================================
+
+.page-header {
+    margin-bottom: $spacing-xl;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.page-title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+
+    @include mobile {
+        font-size: $font-size-xl;
+    }
+}
+
+.page-description {
+    font-size: $font-size-base;
+    color: $text-muted;
+}
+
+// ==========================================================================
+// Section Header
+// ==========================================================================
+
+.section-header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $border;
+}
+
+.section-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin: 0;
+}
+
+.section-link {
+    font-size: $font-size-sm;
+    color: $accent;
+    transition: color $transition-base;
+
+    &:hover {
+        color: lighten($accent, 10%);
+    }
+}
+
+// ==========================================================================
+// Movie List
+// ==========================================================================
+
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+}
+
+.movie-row {
+    display: flex;
+    gap: $spacing-md;
+    overflow-x: auto;
+    padding-bottom: $spacing-md;
+    scroll-snap-type: x mandatory;
+    @include custom-scrollbar;
+
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .movie-item {
+        flex: 0 0 auto;
+        width: 180px;
+        scroll-snap-align: start;
+
+        @include mobile {
+            width: 140px;
+        }
+    }
+}
+
+// ==========================================================================
+// Infinite Scroll Sentinel
+// ==========================================================================
+
+.scroll-sentinel {
+    min-height: 1px;
+    margin-top: $spacing-md;
+}
+
+// ==========================================================================
+// End Message
+// ==========================================================================
+
+.end-message {
+    text-align: center;
+    padding: $spacing-xl;
+    color: $text-muted;
+    font-size: $font-size-sm;
+
+    .end-icon {
+        font-size: $font-size-2xl;
+        margin-bottom: $spacing-sm;
+        opacity: 0.5;
+    }
+}
+
+// ==========================================================================
+// Loading More
+// ==========================================================================
+
+.loading-more {
+    @include flex-center;
+    padding: $spacing-xl;
+
+    .loader-text {
+        color: $text-muted;
+    }
+}
+
+// ==========================================================================
+// Error State
+// ==========================================================================
+
+.error-state {
+    text-align: center;
+    padding: $spacing-3xl $spacing-lg;
+
+    .error-icon {
+        font-size: 48px;
+        color: $error;
+        margin-bottom: $spacing-md;
+    }
+
+    .error-message {
+        font-size: $font-size-lg;
+        color: $text-primary;
+        margin-bottom: $spacing-sm;
+    }
+
+    .error-description {
+        color: $text-muted;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// ==========================================================================
+// Empty State
+// ==========================================================================
+
+.empty-state {
+    text-align: center;
+    padding: $spacing-3xl $spacing-lg;
+
+    .empty-icon {
+        font-size: 64px;
+        color: $text-muted;
+        margin-bottom: $spacing-md;
+        opacity: 0.5;
+    }
+
+    .empty-title {
+        font-size: $font-size-xl;
+        color: $text-primary;
+        margin-bottom: $spacing-sm;
+    }
+
+    .empty-description {
+        color: $text-muted;
+        margin-bottom: $spacing-lg;
+    }
+}

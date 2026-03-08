@@ -7,25 +7,79 @@
  * 
  * @param {Object} props - Component props
  * @param {number} props.count - Number of skeleton cards to display
+ * @param {string} props.variant - Variant: 'card', 'text', 'circle'
  */
-function Skeleton({ count = 8 }) {
+import { motion } from "framer-motion";
+
+function Skeleton({ count = 8, variant = 'card' }) {
+  // Animation variants for stagger effect
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // If variant is not card, render simple skeleton
+  if (variant === 'text') {
+    return (
+      <motion.div
+        className="skeleton-text"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      />
+    );
+  }
+
+  if (variant === 'circle') {
+    return (
+      <motion.div
+        className="skeleton-circle skeleton-circle-md"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      />
+    );
+  }
+
+  // Default: card skeleton grid
   return (
     <div className="card-grid">
-      {/* Create an array of specified length and render skeleton cards */}
       {Array.from({ length: count }).map((_, index) => (
-        <div key={`skeleton-${index}`} className="card">
-          {/* Placeholder for poster image */}
-          <div style={{ height: 250, background: "#eef1f5" }} />
-          <div className="card-body">
-            {/* Placeholder for title */}
-            <div style={{ height: 14, background: "#eef1f5", marginBottom: 8 }} />
-            {/* Placeholder for year - narrower than title */}
-            <div style={{ height: 14, background: "#f3f4f6", width: "60%" }} />
+        <motion.article
+          key={`skeleton-${index}`}
+          className="skeleton-card"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <div className="skeleton-poster" />
+          <div className="skeleton-body">
+            <div className="skeleton-title" />
+            <div className="skeleton-meta" />
+            <div className="skeleton-meta" />
           </div>
-        </div>
+        </motion.article>
       ))}
     </div>
   );
 }
 
 export default Skeleton;
+
