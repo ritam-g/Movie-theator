@@ -15,14 +15,17 @@ import axios from "axios";
 // In production (served from same server), use /api
 // In development, use localhost:5000/api
 const getApiBaseUrl = () => {
-  // If explicitly set, use that URL
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
+  // Check if we're in production mode first
+  const isProduction = import.meta.env.MODE === "production" || import.meta.env.PROD === "true";
+
+  // In production, always use relative /api (ignore VITE_API_BASE_URL if set to localhost)
+  if (isProduction) {
+    return "/api";
   }
 
-  // Check if we're in production mode
-  if (import.meta.env.MODE === "production") {
-    return "/api";
+  // If explicitly set and NOT localhost, use that URL
+  if (import.meta.env.VITE_API_BASE_URL && !import.meta.env.VITE_API_BASE_URL.includes("localhost")) {
+    return import.meta.env.VITE_API_BASE_URL;
   }
 
   // Development fallback

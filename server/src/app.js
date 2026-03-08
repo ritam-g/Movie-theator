@@ -91,15 +91,15 @@ app.use("/api/favorites", favoriteRoutes); // Favorites routes
 app.use("/api/history", historyRoutes);     // Watch history routes
 app.use("/api/admin", adminRoutes);  // Admin routes
 
-// Serve React static files in production
 // The dist folder is created after running npm run build in client folder
 if (config.nodeEnv === "production") {
   // Serve static files from the dist folder
-  app.use(express.static(path.join(__dirname, "../client/dist")));
+  // Path: from server/src/ go up to root, then into client/dist
+  app.use(express.static(path.join(__dirname, "../../client/dist")));
 
   // Handle React routing - serve index.html for all non-API routes
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    res.sendFile(path.join(__dirname, "../../client/dist/index.html"));
   });
 } else {
   // In development, serve static files from the public folder
