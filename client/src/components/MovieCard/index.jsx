@@ -1,9 +1,17 @@
-import { getPosterUrl, getReleaseYear } from "../../utils/helpers";
+import { Link } from "react-router-dom";
+import { getMovieTitle, getPosterUrl, getReleaseYear } from "../../utils/helpers";
 
-function MovieCard({ movie = {}, onOpen }) {
-  const title = movie.title || movie.name || "Untitled";
-  const rating = Number(movie.vote_average || 0).toFixed(1);
-  const year = getReleaseYear(movie.release_date || movie.first_air_date);
+function MovieCard({
+  movie = {},
+  onOpen,
+  onToggleFavorite,
+  isFavorite = false,
+  showFavoriteAction = false,
+}) {
+  const title = getMovieTitle(movie);
+  const rating = Number(movie.vote_average || movie.rating || 0).toFixed(1);
+  const year = getReleaseYear(movie.release_date || movie.first_air_date || movie.releaseDate);
+  const identifier = movie.id || movie.tmdbId;
 
   return (
     <article className="card">
@@ -19,9 +27,16 @@ function MovieCard({ movie = {}, onOpen }) {
         <strong>{title}</strong>
         <div className="meta">Rating: {rating}</div>
         <div className="meta">Year: {year || "N/A"}</div>
-        <button type="button" onClick={() => onOpen?.(movie)}>
-          View Details
-        </button>
+        <div className="card-actions">
+          <Link className="button-link" to={`/movie/${identifier}`} onClick={() => onOpen?.(movie)}>
+            View Details
+          </Link>
+          {showFavoriteAction ? (
+            <button type="button" onClick={() => onToggleFavorite?.(movie)}>
+              {isFavorite ? "Remove Favorite" : "Add Favorite"}
+            </button>
+          ) : null}
+        </div>
       </div>
     </article>
   );

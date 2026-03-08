@@ -82,6 +82,12 @@ a {
   padding: 0.75rem;
 }
 
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
 .meta {
   color: var(--muted);
   font-size: 0.9rem;
@@ -92,7 +98,9 @@ a {
 }
 
 button,
-input {
+input,
+textarea,
+select {
   font: inherit;
 }
 
@@ -110,12 +118,23 @@ button.primary {
   color: #fff;
 }
 
+.button-link {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
 .form-control {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.6rem;
   margin-bottom: 0.75rem;
+  background: #fff;
 }
 
 .empty {
@@ -126,8 +145,79 @@ button.primary {
   color: var(--muted);
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.6);
+  padding: 1rem;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.details-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1rem;
+}
+
+.details-poster {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+}
+
+.chips span {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+}
+
+.details-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.history-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.history-item {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1rem;
+}
+
 @media (max-width: 768px) {
   .card img {
     height: 220px;
+  }
+
+  .details-layout,
+  .admin-grid {
+    grid-template-columns: 1fr;
   }
 }
