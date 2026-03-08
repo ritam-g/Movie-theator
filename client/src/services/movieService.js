@@ -7,7 +7,7 @@ export const movieService = {
   getMovieById(id) {
     return api.get(`/movies/${id}`);
   },
-  search(query, page = 1) {
-    return api.get("/movies", { params: { query, page } });
+  search(query, page = 1, type = "search") {
+    return api.get("/movies", { params: { query, page, type } });
   },
 };

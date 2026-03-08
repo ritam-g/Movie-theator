@@ -1,14 +1,26 @@
 import { NavLink } from "react-router-dom";
-
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/search", label: "Search" },
-  { to: "/favorites", label: "Favorites" },
-  { to: "/admin", label: "Admin" },
-  { to: "/login", label: "Login" },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../redux/slices/authSlice";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/search", label: "Search" },
+    { to: "/favorites", label: "Favorites" },
+  ];
+
+  if (user?.isAdmin) {
+    links.push({ to: "/admin", label: "Admin" });
+  }
+
+  if (!isAuthenticated) {
+    links.push({ to: "/login", label: "Login" });
+    links.push({ to: "/register", label: "Register" });
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -21,6 +33,11 @@ function Navbar() {
               {link.label}
             </NavLink>
           ))}
+          {isAuthenticated ? (
+            <button type="button" onClick={() => dispatch(logoutUser())}>
+              Logout
+            </button>
+          ) : null}
         </nav>
       </div>
     </header>

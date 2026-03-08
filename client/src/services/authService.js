@@ -7,11 +7,7 @@ export const authService = {
   login(payload) {
     return api.post("/auth/login", payload);
   },
-  profile(token) {
-    return api.get("/auth/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  profile() {
+    return api.get("/auth/profile");
   },
 };
