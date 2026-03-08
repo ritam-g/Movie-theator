@@ -49,7 +49,7 @@ userSchema.methods.comparePassword = function comparePassword(rawPassword) {
 
 userSchema.methods.toPublicProfile = function toPublicProfile() {
   return {
-    id: this._id,
+    id: String(this._id),
     name: this.name,
     email: this.email,
     isAdmin: this.isAdmin,

@@ -19,7 +19,7 @@ const movieSchema = new mongoose.Schema(
 
 movieSchema.methods.toClient = function toClient() {
   return {
-    id: this._id,
+    id: String(this._id),
     tmdbId: this.tmdbId || null,
     title: this.title || "Untitled",
     posterUrl: this.posterUrl || "",
