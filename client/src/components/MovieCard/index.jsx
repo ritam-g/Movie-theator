@@ -12,7 +12,9 @@ function MovieCard({
   const rating = Number(movie.vote_average || movie.rating || 0).toFixed(1);
   const year = getReleaseYear(movie.release_date || movie.first_air_date || movie.releaseDate);
   const identifier = movie.id || movie.tmdbId;
-
+  
+  //console.log(getPosterUrl(movie.poster_path));
+  
   return (
     <article className="card">
       <img
