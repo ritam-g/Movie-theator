@@ -1,3 +1,4 @@
+
 /**
  * API Configuration & Axios Instance
  * 
@@ -10,10 +11,28 @@
  */
 import axios from "axios";
 
+// Get the API base URL from environment variable or use relative URL
+// In production (served from same server), use /api
+// In development, use localhost:5000/api
+const getApiBaseUrl = () => {
+  // If explicitly set, use that URL
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+
+  // Check if we're in production mode
+  if (import.meta.env.MODE === "production") {
+    return "/api";
+  }
+
+  // Development fallback
+  return "http://localhost:5000/api";
+};
+
 // Create axios instance with default configuration
 const api = axios.create({
-  // Base URL for all API requests - uses env variable or defaults to localhost
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api",
+  // Base URL for all API requests
+  baseURL: getApiBaseUrl(),
   // Request timeout in milliseconds (15 seconds)
   timeout: 15000,
 });
@@ -58,3 +77,5 @@ api.interceptors.response.use(
 
 // Export the configured axios instance for use in other files
 export default api;
+
+

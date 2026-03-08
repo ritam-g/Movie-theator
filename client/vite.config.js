@@ -6,4 +6,11 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  // Set the base path for production deployment
+  base: "/",
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+  },
 });
+

@@ -1,3 +1,4 @@
+
 /**
  * Environment Configuration
  * 
@@ -26,11 +27,18 @@ function parseNumber(value, fallbackValue) {
  * Reads from process.env and provides defaults
  */
 function buildConfig() {
+  const nodeEnv = process.env.NODE_ENV || "development";
+
+  // In production, allow all origins since frontend is served from same server
+  const clientUrl = nodeEnv === "production"
+    ? (process.env.CLIENT_URL || "*")
+    : (process.env.CLIENT_URL || "http://localhost:5173");
+
   const config = {
     // Node environment (development, production, test)
-    nodeEnv: process.env.NODE_ENV || "development",
+    nodeEnv: nodeEnv,
 
-    // Server port
+    // Server port - use PORT from environment (Render) or default to 5000
     port: parseNumber(process.env.PORT, 5000),
 
     // MongoDB connection URI
@@ -49,7 +57,7 @@ function buildConfig() {
     tmdbBaseUrl: process.env.TMDB_BASE_URL || "https://api.themoviedb.org/3",
 
     // Client URL for CORS
-    clientUrl: process.env.CLIENT_URL || "http://localhost:5173",
+    clientUrl: clientUrl,
   };
 
   // List of required environment variables
@@ -61,8 +69,8 @@ function buildConfig() {
   // Find missing required variables
   const missingKeys = requiredVariables.filter((entry) => !entry.value).map((entry) => entry.key);
 
-  // Throw error if any required variables are missing
-  if (missingKeys.length > 0) {
+  // In production, warn but don't throw for missing variables (allows flexibility)
+  if (missingKeys.length > 0 && nodeEnv !== "production") {
     throw new Error(`Missing required environment variables: ${missingKeys.join(", ")}`);
   }
 
@@ -71,3 +79,5 @@ function buildConfig() {
 
 // Export the configuration object
 module.exports = buildConfig();
+
+

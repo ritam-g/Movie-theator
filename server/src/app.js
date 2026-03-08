@@ -8,6 +8,7 @@
  * - Request parsing (JSON, URL-encoded)
  * - Request logging (morgan)
  * - API routes
+ * - React static file serving for production
  * - Error handling
  */
 const express = require("express");
@@ -17,6 +18,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 // Security headers middleware
 const helmet = require("helmet");
+// Path module for file paths
+const path = require("path");
 // Environment configuration
 const config = require("./config/env");
 
@@ -36,7 +39,20 @@ const app = express();
 app.disable("x-powered-by");
 
 // Security middleware
-app.use(helmet());
+// Configure helmet to allow images from TMDB and other external sources
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://image.tmdb.org", "https://*.tmdb.org"],
+        connectSrc: ["'self'", "https://api.themoviedb.org"],
+      },
+    },
+  })
+);
 
 // CORS configuration
 app.use(
@@ -75,6 +91,26 @@ app.use("/api/favorites", favoriteRoutes); // Favorites routes
 app.use("/api/history", historyRoutes);     // Watch history routes
 app.use("/api/admin", adminRoutes);  // Admin routes
 
+// Serve React static files in production
+// The dist folder is created after running npm run build in client folder
+if (config.nodeEnv === "production") {
+  // Serve static files from the dist folder
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+
+  // Handle React routing - serve index.html for all non-API routes
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+} else {
+  // In development, serve static files from the public folder
+  app.use(express.static(path.join(__dirname, "../public")));
+
+  // Handle React routing - serve index.html for all non-API routes
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+}
+
 // Error handling middleware
 // 404 handler for undefined routes
 app.use(notFoundHandler);
@@ -83,3 +119,4 @@ app.use(errorMiddleware);
 
 // Export app for use in server.js
 module.exports = app;
+

@@ -19,6 +19,11 @@ const mongoose = require("mongoose");
 let serverInstance = null;
 
 /**
+ * Server port - use PORT from environment (Render) or default to 5000
+ */
+const port = process.env.PORT || 5000;
+
+/**
  * Start the server
  * Connects to database and starts listening on configured port
  */
@@ -28,8 +33,8 @@ async function startServer() {
     await connectDB();
 
     // Start HTTP server
-    serverInstance = app.listen(config.port, () => {
-      console.log(`Server listening on port ${config.port}`);
+    serverInstance = app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
     });
   } catch (error) {
     console.error("Failed to start server:", error.message);
