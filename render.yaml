@@ -1,4 +1,3 @@
-
 # Render Blueprint Configuration
 # This file can be used to deploy to Render with one click
 
@@ -7,7 +6,7 @@ services:
     name: movie-platform
     env: node
     region: oregon
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm run start
     envVars:
       - key: NODE_ENV
@@ -20,6 +19,4 @@ services:
         sync: false
       - key: PORT
         value: 10000
-    # Connect to MongoDB using Render's native integration
-    # Or specify external MongoDB URI in MONGO_URI env var
 
