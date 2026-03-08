@@ -12,3 +12,4 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+RENDER_ENV.md
