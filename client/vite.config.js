@@ -10,7 +10,7 @@ export default defineConfig({
   // Build to root/public for server deployment
   base: "/",
   build: {
-    outDir: "../public",
+    outDir: "../server/public",
     emptyOutDir: true,
     sourcemap: false,
   },
