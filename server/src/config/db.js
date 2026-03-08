@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
+const config = require("./env");
 
 async function connectDB() {
-  const mongoUri = process.env.MONGO_URI;
+  mongoose.connection.on("disconnected", () => {
+    console.warn("MongoDB disconnected");
+  });
 
-  if (!mongoUri) {
-    throw new Error("MONGO_URI is not configured");
-  }
+  mongoose.connection.on("reconnected", () => {
+    console.log("MongoDB reconnected");
+  });
 
-  await mongoose.connect(mongoUri);
-  // Keep initial setup observable during local development.
+  await mongoose.connect(config.mongoUri, {
+    serverSelectionTimeoutMS: 10000,
+    maxPoolSize: 10,
+  });
   console.log("MongoDB connected");
 }
 

@@ -2,12 +2,12 @@
 
 Production-grade MERN Movie Discovery Platform scaffold.
 
-## Step 1 Completed
+## Steps Completed
 
-This commit scaffolds the monorepo layout and starter client/server foundations.
+Step 1 and Step 2 are completed.
 
 - `client`: React (Vite) frontend with Redux Toolkit, Router, services, hooks, and page/component shells.
-- `server`: Express backend with MVC folder structure, JWT utility, TMDB service layer, and centralized error middleware.
+- `server`: Express backend with MVC folder structure, centralized error middleware, validated environment config, secure middleware defaults, and graceful startup/shutdown handling.
 
 ## Quick Start
 
@@ -31,4 +31,4 @@ This commit scaffolds the monorepo layout and starter client/server foundations.
 - `server/`
 - `README.md`
 
-The next step is implementing backend server logic and database connection hardening.
+The next step is creating and integrating database models and authentication business logic.
